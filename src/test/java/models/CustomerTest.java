@@ -17,11 +17,12 @@ public class CustomerTest {
     private static UUID targetId;
     private static Customer target;
     private static Validator validator;
+    private static Calendar targetBirthDate = Calendar.getInstance();
 
     @BeforeClass
     public static void initCustomer(){
         targetId = UUID.randomUUID();
-        target = new Customer(targetId, "name", "surname", 18, Calendar.getInstance(), "test@mail.ua", "0631231234");
+        target = new Customer(targetId, "name", "surname", 18, targetBirthDate, "test@mail.ua", "0631231234");
     }
 
     @BeforeClass
@@ -49,11 +50,12 @@ public class CustomerTest {
     @Test
     public void setFirstName() throws Exception {
         target.setFirstName("new name");
-        assertEquals("nae name", target.getFirstName());
+        assertEquals("new name", target.getFirstName());
     }
 
     @Test
     public void getLastName() throws Exception {
+        target.setLastName("surname");
         assertEquals("surname", target.getLastName());
     }
 
@@ -76,17 +78,19 @@ public class CustomerTest {
 
     @Test
     public void getBirthDate() throws Exception {
-        assertEquals(Calendar.getInstance(), target.getBirthDate());
+        assertEquals(targetBirthDate, target.getBirthDate());
     }
 
     @Test
     public void setBirthDate() throws Exception {
-        target.setBirthDate(Calendar.getInstance());
-        assertEquals(Calendar.getInstance(), target.getBirthDate());
+        Calendar now = Calendar.getInstance();
+        target.setBirthDate(now);
+        assertEquals(now, target.getBirthDate());
     }
 
     @Test
     public void getEmail() throws Exception {
+        target.setEmail("test@mail.ua");
         assertEquals("test@mail.ua", target.getEmail());
     }
 
@@ -98,6 +102,7 @@ public class CustomerTest {
 
     @Test
     public void getPhone() throws Exception {
+        target.setPhone("1234567890");
         assertEquals("1234567890", target.getPhone());
     }
 
